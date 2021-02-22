@@ -1,38 +1,100 @@
-.App {
-  text-align: center;
+[class*="col-"] {
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.inputName{
+  width: 350px;
+  height: 350px;
+  margin: auto;
+  padding: 50px;
+  border: 2px solid black;
+  border-radius: 15px;
+  position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.home{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-around;
 }
 
-.App-link {
-  color: #61dafb;
+button{
+  border-radius: 15px;
+  height: 30px;
+  width: 225px;
+  text-align: center;
+  background-color:lightblue;
+  border-style: none;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.chatRooms{
+  width: 50%;
+  height: 500px;
+  padding-top: 30px;
+}
+
+.chatRoomList{
+  height: 275px;
+  overflow-y: scroll;
+}
+
+
+.chat{
+  background-color: grey;
+  height: 465px;
+  width: 500px;
+  overflow-y:scroll;
+  padding-left: 25px;
+  border: 2px solid grey;
+  border-radius: 5px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 32px;
+    background: #eee;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.nameForm{
+  width: 225px;
+}
+
+.form{
+  width: 450px;
+  margin: auto;
+
+}
+
+.message{
+  padding: 0;
+}
+
+
+.row{
+  padding:0px;
 }

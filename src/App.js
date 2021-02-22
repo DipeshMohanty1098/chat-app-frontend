@@ -1,23 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import MessagePage from './components.js/messages'
+import Name from './components.js/inputName'
+import Routes from './Routes';
+import ChatRooms from './components.js/chatRooms'
 
+
+//<button onClick={localStorage.removeItem('Name')}>Disconnect</button>
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes/>
     </div>
   );
 }
