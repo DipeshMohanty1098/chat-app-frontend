@@ -18,7 +18,7 @@ const MessagePage = () => {
     const sendNotification = async () => {
         //const websocket = new WebSocket("ws://192.168.0.108:5050/");
         console.log("websocket: " + websocket);
-        fetch("https://messages-flask-rest-api.herokuapp.com/messages/" + params.chatRoomName)
+        fetch("http://192.168.0.105:5000/messages/" + params.chatRoomName)
         .then(res => {
             if (res.ok)
             return res.json();
@@ -35,12 +35,12 @@ const MessagePage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const messageObj = {message, author, chatRoom};
-        fetch("https://messages-flask-rest-api.herokuapp.com/messages/" + params.chatRoomName, {
+        fetch("http://192.168.0.105:5000/messages/" + params.chatRoomName, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(messageObj)
         }).then(()=>{
-            fetch("https://messages-flask-rest-api.herokuapp.com/messages/" + params.chatRoomName)
+            fetch("http://192.168.0.105:5000/messages/" + params.chatRoomName)
         .then(res => {
             if (res.ok)
             return res.json();
@@ -60,8 +60,8 @@ const MessagePage = () => {
     useEffect(()=>{
         setAuthor(localStorage.getItem('Name'));
         setChatRoom(params.chatRoomName);
-        setWebsocket(new WebSocket("wss://message-websocket-server.herokuapp.com/0.0.0.0/" + params.chatRoomName + "/"));
-        fetch("https://messages-flask-rest-api.herokuapp.com/messages/" + params.chatRoomName)
+        setWebsocket(new WebSocket("ws://192.168.0.105:5050/" + params.chatRoomName + "/"));
+        fetch("http://192.168.0.105:5000/messages/" + params.chatRoomName)
         .then(res => {
             if (res.ok)
             return res.json();

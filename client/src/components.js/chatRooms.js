@@ -12,7 +12,7 @@ const ChatRooms = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const chatRoomObj = {chatRoomName: chatName}
-        fetch("https://chat-room-rest-api.herokuapp.com/chatRooms/", {
+        fetch("http://192.168.0.105:5001/chatRooms/", {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(chatRoomObj)
@@ -35,7 +35,7 @@ const ChatRooms = () => {
     }
 
     useEffect(()=>{
-        fetch('https://chat-room-rest-api.herokuapp.com/chatRooms').then((res)=>{
+        fetch('http://192.168.0.105:5001/chatRooms').then((res)=>{
             if (res.ok){
                 return res.json();
             }
@@ -61,9 +61,9 @@ const ChatRooms = () => {
             <li className="collection-header"><input onChange={(e) => setFilter(e.target.value)} placeholder="Search chat room" style={{width: "500px"}}/></li>
             <div className="chatRoomList">
             <BrowserRouter>
-            {filteredChatRoom.length  != 0 ? filteredChatRoom.map((chatRoom)=>(
+            {filteredChatRoom ? filteredChatRoom.map((chatRoom)=>(
                 <li onClick={refresh}><Link to={"/chat/chatRoom=" + chatRoom.chatRoomName} className="collection-item">{chatRoom.chatRoomName}</Link></li>
-            )) : <p>Could not find chat rooms with this name.</p>}
+            )) : <p>Loading...</p>}
             </BrowserRouter>
             </div>
         </ul>
