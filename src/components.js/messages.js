@@ -99,7 +99,7 @@ const MessagePage = () => {
         <h4>{params.chatRoomName}</h4>
         </div>
         <div className="chat" >
-            {messages ? messages.map((message)=>(
+            {messages || messages.length === 0 ? messages.map((message)=>(
                 <div>
                 <div className="row" key = {message.id} >
                 <div className="col-10">
@@ -130,7 +130,7 @@ const MessagePage = () => {
                         break;
                 }
             }
-            ): <h1 style={{textAlign: "center"}}>Loading...</h1>}
+            ): <p style={{textAlign: "center"}}>Could not find any messages! Be the first one to send a message in this chat room!</p>}
             </div>
             <div className="col-12">   
             <div className="center">     
