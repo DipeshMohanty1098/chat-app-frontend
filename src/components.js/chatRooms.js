@@ -58,7 +58,7 @@ const ChatRooms = () => {
         <div className="chatRooms">
         <ul className="collection with-header">
             <li className="collection-header"><h4>Chat Rooms</h4></li>
-            <li className="collection-header"><input onChange={(e) => setFilter(e.target.value)} placeholder="Search chat room" style={{width: "500px"}}/></li>
+            <li style={{fontSize: "15px", paddingLeft:"10px"}}><input onChange={(e) => setFilter(e.target.value)} placeholder="Search chat room" style={{width: "500px"}}/></li>
             <div className="chatRoomList">
             <BrowserRouter>
             {filteredChatRoom.length  != 0 ? filteredChatRoom.map((chatRoom)=>(

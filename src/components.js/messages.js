@@ -1,9 +1,10 @@
 import {useEffect, useState, useRef} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 
 
 const MessagePage = () => {
     let params = useParams();
+    const history = useHistory();
     const [messages, setMessages] = useState(null)
     const messagesEndRef = useRef(null)
     const [message, setMessage] = useState('')
@@ -14,6 +15,7 @@ const MessagePage = () => {
     const  [websocket, setWebsocket] = useState(null);
     //const websocket = new WebSocket("ws://192.168.0.108:5050/");
     const [websocketData, setWebsocketData] = useState(null);
+    const [notExist, setNotExist] = useState("");
 
     const sendNotification = async () => {
         //const websocket = new WebSocket("ws://192.168.0.108:5050/");
@@ -58,6 +60,9 @@ const MessagePage = () => {
 
 
     useEffect(()=>{
+        if (params.chatRoomName === null || params.chatRoomName === ""){
+            history.push("/chat/chatRoom=chatRoom1");
+        }
         setAuthor(localStorage.getItem('Name'));
         setChatRoom(params.chatRoomName);
         setWebsocket(new WebSocket("wss://message-websocket-server.herokuapp.com/0.0.0.0/" + params.chatRoomName + "/"));
@@ -70,7 +75,24 @@ const MessagePage = () => {
             console.log("data:" + data.json);
             setMessages(data);
         })
-        console.log("being called!!!")
+        //console.log("being called!!!")
+        fetch("https://chat-room-rest-api.herokuapp.com/chatRooms")
+        .then((res)=>{
+            if (res.status === 200){
+                return res.json();   
+            }
+        }).then((data)=>{
+            const chatRooms = data.json;
+            console.log("CHATROOMSSSS:" + data);
+                const filter = data.filter((c)=>{
+                    return c.chatRoomName === params.chatRoomName
+                })
+                console.log(filter)
+                if (filter.length === 0 || params.chatRoomName === "" || params.chatRoomName === null){
+                setNotExist("Sorry this chat room does not exist! You will not be able to send messages here. Create the chat room first.");
+                }
+                console.log("Error:" + notExist)
+        })
         //return => chat();
     }, [])
 
@@ -99,7 +121,7 @@ const MessagePage = () => {
         <h4>{params.chatRoomName}</h4>
         </div>
         <div className="chat" >
-            {messages ? messages.length === 0 ? <p>Could not find any messages! Be the first one to send a message in this chat room!</p>: messages.map((message)=>(
+            {notExist !== "" || params.chatRoomName === "" || params.chatRoomName === null? <p style={{textAlign: "center"}}>{notExist}</p>: messages ? messages.length === 0 ? <p style={{textAlign: "center"}}>Could not find any messages! Be the first one to send a message in this chat room!</p>: messages.map((message)=>(
                 <div>
                 <div className="row" key = {message.id} >
                 <div className="col-10">
@@ -137,7 +159,7 @@ const MessagePage = () => {
             <form onSubmit={handleSubmit} className="form">
             <input type="text" placeholder="Enter your message" onChange={(e)=>setMessage(e.target.value)} value={message}/>
             <div> 
-            <button  className="waves-effect waves-light btn-small" type="submit" disabled={message == '' ? true : false}>Send</button>
+            <button  className="waves-effect waves-light btn-small" type="submit" disabled={message == '' || notExist !== '' ? true : false}>Send</button>
             </div>
             </form>
             </div>
