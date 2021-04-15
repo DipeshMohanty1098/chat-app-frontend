@@ -71,7 +71,7 @@ const ChatRooms = () => {
             <input type="text" required value={chatName} placeholder="Enter Name of your chat room!" onChange={(e)=> { console.log(chatName);
                 setChatName(e.target.value)}}/>
         </form>
-        <button onClick={handleSubmit}>Create new chat Room</button>
+        <button onClick={handleSubmit} disabled={chatName===""?true:false}>Create new chat Room</button>
         <p style={{color: color}}>{error}</p>
         </div>
     )
