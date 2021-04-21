@@ -147,7 +147,9 @@ const MessagePage = () => {
                     case 'state':
                         if (data.path == params.chatRoomName){
                         const newMessages = [...messages, data];
-                        setMessages(newMessages)
+                        if (newMessages.length === messages.length){
+                            setMessages(newMessages)
+                        }
                         }
                         break;
                 }
